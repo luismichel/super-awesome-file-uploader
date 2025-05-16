@@ -49,7 +49,7 @@ export default function UploadDialogButton() {
     formData.append("iv", Buffer.from(iv).toString("base64"));
     formData.append("key", Buffer.from(key).toString("base64"));
 
-    const res = await fetch("/api/upload", {
+    const res = await fetch("/api/protected/upload", {
       method: "POST",
       body: formData,
     });

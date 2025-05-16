@@ -1,6 +1,6 @@
 export async function decryptAndDownload(fileId, filename, mimeType) {
   try {
-    const res = await fetch("/api/download", {
+    const res = await fetch("/api/protected/download", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fileId }),

@@ -26,14 +26,14 @@ export default function ShareDialog({ file, onClose }) {
 
   useEffect(() => {
     if (file) {
-      fetch("/api/users") // you'll create this endpoint
+      fetch("/api/protected/users")
         .then((res) => res.json())
         .then((data) => setUsers(data));
     }
   }, [file]);
 
   const handleShare = async () => {
-    const res = await fetch("/api/share", {
+    const res = await fetch("/api/protected/share", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
