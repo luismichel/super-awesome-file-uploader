@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String        @id @default(cuid())
+  email    String        @unique
+  password String
+  role     String
+  files    File[]        @relation("OwnedFiles")
+  shared   SharedFile[]  @relation("SharedWithUser")
+  createdAt DateTime     @default(now())
+}
+
+model File {
+  id            String        @id @default(cuid())
+  name          String
+  alias         String
+  encryptedPath String
+  mimeType      String
+  size          Int
+  ownerId       String
+  encryptionKey String
+  encryptionIV  String
+  maxViews      Int           @default(1)
+  views         Int           @default(0)
+  createdAt     DateTime      @default(now())
+  owner         User          @relation("OwnedFiles", fields: [ownerId], references: [id])
+  sharedWith    SharedFile[]
+}
+
+model SharedFile {
+  id           String   @id @default(cuid())
+  fileId       String
+  recipientId  String
+  file         File     @relation(fields: [fileId], references: [id])
+  recipient    User     @relation("SharedWithUser", fields: [recipientId], references: [id])
+  maxViews     Int
+  views        Int      @default(0)
+  createdAt    DateTime @default(now())
+  
+  @@unique([fileId, recipientId])
+}
