@@ -38,7 +38,7 @@ A secure file upload and sharing application built with **Next.js 15**, **Prisma
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/super-awesome-file-uploader.git
+git clone https://github.com/luismichel/super-awesome-file-uploader.git
 cd super-awesome-file-uploader
 ```
 
